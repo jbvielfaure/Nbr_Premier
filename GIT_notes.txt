@@ -1,0 +1,13 @@
+GIT
+
+git add .
+git commit -m "First commit"
+git status 
+git remote add origin https://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@github.com/jbvielfaure/Nbr_Premier.git
+git push https://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@github.com/jbvielfaure/Nbr_Premier.git
+git status
+
+
+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
+
+
