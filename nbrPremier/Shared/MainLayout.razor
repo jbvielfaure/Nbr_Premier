@@ -1,0 +1,91 @@
+@using nbrPremier.Outils;
+@inherits LayoutComponentBase
+
+<div style="min-height:100%; display:grid">
+  <div  style=" width: 100%; background-color: #CECECE; box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75); -moz-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75); -webkit-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);align-self:baseline;">
+    <div style="padding:15px;text-align:center; ">
+      <a style="font-size:25px; color: black">PREM'S </a><a style="font-size:25px; color: #606060"> : premier or not premier</a>
+    </div>
+
+  </div>
+
+  <div class="page"  >
+    <div class="main">
+        <div class="content px-4">
+            <div class="col-md-12">
+              <div class="col-md-6 offset-md-3">
+                <div class="card">
+                  <div id="legend" class="card-header" style="text-align: center;">
+                    <legend class="legend">Nombre Premier </legend>
+                  </div>
+                  <div class="list-group">
+                    <div class="form-group" style="padding-right:12px; padding-left:12px; padding-top:20px; padding-bottom:20px">
+                      <input type="number" style="width:100%;" class="form-control" placeholder="entrez votre nombre" @oninput="@onInputPrems" />
+                      @if (noPremier)
+                      {
+                      <a style="color:red">Non premier </a>
+                      }
+                      @if (premier)
+                      {
+                      <a style="color:green">Premier</a>
+                      }
+                    </div>
+                  </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <div style=" align-self:end">
+  <div style=" padding:10px;left: 0; bottom: 0; right: 0; width: 100%; background-color: black; color: white; text-align: center; ">
+        <a style="color:white; font-size:15px; ">@footerTitre</a>
+  </div>
+    </div>
+
+  </div>
+
+
+@code{
+    private string footerTitre = "@Prem's Copyright 2021";
+    private bool premier = false;
+    private bool noPremier = false;
+
+
+    private void onInputPrems(ChangeEventArgs args)
+    {
+      if (args.Value.ToString() != "")
+      {
+        int nombre = 0;
+        try
+        {
+          nombre = int.Parse(args.Value.ToString());
+        }catch(Exception ex)
+        {
+          nombre = 4;
+        }
+        //int nombre = int.Parse(args.Value.ToString());
+
+
+        int result = NombrePremier.nbrPremier(nombre);
+        if (result == 0)
+        {
+          noPremier = true;
+          premier = false;
+        }
+        if (result == 1)
+        {
+          noPremier = false;
+          premier = true;
+        }
+
+      }
+      else
+      {
+        noPremier = false;
+        premier = false;
+      }
+      //registerValidationForm.mail = args.Value.ToString();
+    }
+}
